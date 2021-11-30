@@ -8,11 +8,17 @@ class CardEditor extends React.Component {
   }
 
   addCard = () => {
+    if (!(this.state.front.trim() && this.state.back.trim())) {
+      alert('Cannot add empty card');
+      return;
+    }
     this.props.addCard(this.state);
     this.setState({ front: '', back: '' });
   };
 
-  deleteCard = index => this.props.deleteCard(index);
+  deleteCard = index => {
+    this.props.deleteCard(index);
+  }
 
   handleChange = event =>
     this.setState({ [event.target.name]: event.target.value });
@@ -56,9 +62,9 @@ class CardEditor extends React.Component {
           placeholder="Back of card"
           value={this.state.back}
         />
-        <button onClick={this.addCard}>Add card</button>
+        <button onClick={this.addCard}>Add Card</button>
         <hr />
-        <button onClick={this.props.switchMode}>Go to card viewer</button>
+        <button onClick={this.props.switchMode}>Go to Card Viewer</button>
       </div>
     );
   }
