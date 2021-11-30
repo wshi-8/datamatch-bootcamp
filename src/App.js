@@ -3,7 +3,6 @@ import CardEditor from './CardEditor';
 import CardViewer from './CardViewer';
 import Homepage from './Homepage';
 
-
 import { Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
@@ -16,21 +15,21 @@ class App extends React.Component {
       ],
     };
   }
-
   addCard = card => {
     const cards = this.state.cards.slice().concat(card);
     this.setState({ cards });
   };
-
   deleteCard = index => {
     const cards = this.state.cards.slice();
     cards.splice(index, 1);
     this.setState({ cards });
   };
-
   render() {
     return (
       <Switch>
+        <Route exact path="/">
+          <Homepage />
+        </Route>
         <Route exact path="/editor">
           <CardEditor
             addCard={this.addCard}
@@ -38,15 +37,11 @@ class App extends React.Component {
             deleteCard={this.deleteCard}
           />
         </Route>
-        <Route exact path="/viewer">
+        <Route exact path="/viewer/:deckId">
           <CardViewer cards={this.state.cards} />
-        </Route>
-        <Route exact path="/">
-          <Homepage />
         </Route>
       </Switch>
     );
   }
 }
-
 export default App;
